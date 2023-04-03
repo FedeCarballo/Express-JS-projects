@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const tasks = require('./routers/tasks')
 const port = 3000;
-
+const connectDB = require('./db/connect');
+require('dotenv').config()
 //Middleware
 app.use(express.json());
 
@@ -21,7 +22,15 @@ app.use('/api/v1/tasks',tasks)
 // delete <-- Eliminar una tarea
 
 
+//Con esta const lo que hacemos es crear una funcion asincrona, realizamos primero la conexion con la db y luego iniciamos el servidor, de no ser posible lo captura con el .catch
+//Utilizamos variable de entorno para pasar la url por .env
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URI)
+        app.listen(port, ()=>{console.log('server on')})
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-app.listen(port, ()=>{
-    console.log('server on');
-})
+start()
