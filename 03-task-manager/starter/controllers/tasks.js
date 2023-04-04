@@ -18,8 +18,12 @@ const CreateTask = async (req,res) => {
 }
 const SingleTask = async (req,res) => {
     try {
-        const Singletask = await Task.findById(req.params.id)
+        const id = req.params.id
+        const Singletask = await Task.findOne({_id: id})
         res.status(201).json(Singletask)
+        if (!Singletask){
+            return res.status(404).json({msg: 'No se encontro la tarea solicitada'})
+        }
     } catch (error) {
         console.log(error);
     }
@@ -27,8 +31,18 @@ const SingleTask = async (req,res) => {
 const UpdatingTask = (req,res) => {
     res.json(req.params.id)
 }
-const DeletingTask = (req,res) => {
-    res.json(req.params.id)
+const DeletingTask = async (req,res) => {
+    try {
+        const id = req.params.id
+        const singletask = await Task.findOneAndDelete({_id: id})
+        const AllTask = await Task.find({})
+        if(!singletask){
+            return res.status(404).json({msg: 'No se encontro una tarea con esa id'})
+        }
+        res.status(201).json(AllTask)
+    } catch (error) {
+        console.log(error);
+    }
 }
 module.exports = {
     GetAllTasks,
