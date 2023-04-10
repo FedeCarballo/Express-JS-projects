@@ -33,5 +33,4 @@ const start = async () => {
     }
 }
 
-console.log('last commit, fue divertido mientras duro, gracias por todo');
 start()
