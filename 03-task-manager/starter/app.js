@@ -8,7 +8,7 @@ const cors = require('cors')
 //Middleware
 app.use(express.static('./public'))
 app.use(express.json());
-
+console.log('test');
 //Routes:
 app.use('/api/v1/tasks',tasks)
 //Router : 
