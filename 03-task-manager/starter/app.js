@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const tasks = require('./routers/tasks')
-const port = 3000
+const port = process.env.PORT||3000 
 const connectDB = require('./db/connect');
 require('dotenv').config()
 
@@ -23,7 +23,7 @@ app.use('/api/v1/tasks',tasks)
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI)
-        app.listen(port || 'https://express-js-projects.vercel.app/', ()=>{console.log('server on')})
+        app.listen(port, ()=>{console.log('server on')})
     } catch (error) {
         console.log(error);
     }
