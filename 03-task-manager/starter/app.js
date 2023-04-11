@@ -1,9 +1,11 @@
+require('dotenv').config()
+
+
 const express = require('express');
 const app = express();
 const tasks = require('./routers/tasks')
-const port = process.env.PORT 
 const connectDB = require('./db/connect');
-require('dotenv').config()
+const port = process.env.PORT 
 const cors = require('cors')
 //Middleware
 app.use(express.static('./public'))
