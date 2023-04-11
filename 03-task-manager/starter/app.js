@@ -4,7 +4,7 @@ const tasks = require('./routers/tasks')
 const port = process.env.PORT||3000 
 const connectDB = require('./db/connect');
 require('dotenv').config()
-
+const cors = require('cors')
 //Middleware
 app.use(express.static('./public'))
 app.use(express.json());
@@ -17,6 +17,7 @@ app.use('/api/v1/tasks',tasks)
 // get :id <-- obtener una tarea por id
 // patch <-- Actualizar una tarea
 // delete <-- Eliminar una tarea
+app.use(cors())
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
     res.header('Access-Control-Allow-Credentials', 'true');
