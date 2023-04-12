@@ -8,7 +8,7 @@
         {
             "src" : "/(.*)",
             "status" : 200,
-            "dest" : "./public/"
+            "dest" : "./"
         }
     ]
 }
