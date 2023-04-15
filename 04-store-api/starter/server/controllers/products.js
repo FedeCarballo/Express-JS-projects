@@ -11,10 +11,18 @@ const GetAllProductsStatic = async (req,res) => {
 
 const GetAllProducts= async (req,res) => {
     try {
-        const { featured } = req.query
+        const { featured, company, name } = req.query
+        //Creamos un objeto con todas las querys que vamos a pasarle asi luego lo pasamos todo en una sola req
         const queryObject = {}
         if(featured) {
+            //Si el objeto tiene la prop featured devuelve true, de lo contrario devuelve false
             queryObject.featured = featured === 'true' ? true : false
+        }
+        if(company) {
+            queryObject.company = company
+        }
+        if(name) {
+            queryObject.name = {$regex: name, $options: 'i'}
         }
         const products = await Product.find(queryObject)
         if(!queryObject){
