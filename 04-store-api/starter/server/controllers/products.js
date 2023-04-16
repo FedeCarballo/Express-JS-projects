@@ -11,7 +11,8 @@ const GetAllProductsStatic = async (req,res) => {
 
 const GetAllProducts= async (req,res) => {
     try {
-        const { featured, company, name } = req.query
+        const { featured, company, name, sort } = req.query
+        
         //Creamos un objeto con todas las querys que vamos a pasarle asi luego lo pasamos todo en una sola req
         const queryObject = {}
         if(featured) {
@@ -24,7 +25,14 @@ const GetAllProducts= async (req,res) => {
         if(name) {
             queryObject.name = {$regex: name, $options: 'i'}
         }
-        const products = await Product.find(queryObject)
+        let result = Product.find(queryObject)
+        if(sort){
+            const sortList = sort.split(',').join(' ')
+            result = result.sort(sortList)
+        }else{
+            result =result.sort('createdAt')
+        }
+        const products = await result
         if(!queryObject){
             const All = await Product.find({})
             res.status(200).json({All})
