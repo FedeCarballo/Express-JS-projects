@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 const express = require('express');
 const app = express();
 const tasks = require('./routers/tasks')
@@ -8,7 +7,7 @@ const port = process.env.PORT
 const cors = require('cors')
 
 //Middleware
-app.use(express.static('../public'));
+app.use(express.static('https://express-js-projects.vercel.app/'));
 app.use(express.json());
 
 //Routes:
