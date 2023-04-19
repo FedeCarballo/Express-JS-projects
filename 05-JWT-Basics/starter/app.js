@@ -15,7 +15,7 @@ app.use(express.json());
 
 
 
-app.use('/api/v1',mainRouter)
+app.use('/api/v1/',mainRouter)
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
