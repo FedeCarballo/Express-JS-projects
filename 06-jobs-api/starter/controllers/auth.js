@@ -7,6 +7,7 @@ const register = async (req,res) => {
     const token = user.CreateJWT()
     res.status(StatusCodes.CREATED).json({user:{name: user.name}, token })
 }
+console.log('pasaremos este proyecto :D ');
 const login = async (req,res) => {
     console.log(req.body);
     const {email, password} = req.body
