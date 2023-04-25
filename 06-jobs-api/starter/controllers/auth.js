@@ -8,15 +8,18 @@ const register = async (req,res) => {
     res.status(StatusCodes.CREATED).json({user:{name: user.name}, token })
 }
 const login = async (req,res) => {
-    console.log(req.body);
     const {email, password} = req.body
-
     if(!email || !password){
         throw new BadRequestError('Please provide email and password')
     }
     const user = await User.findOne({ email })
     //Validacion de autenticacion, es decir que existe el usuario
     if(!user){
+        throw new UnauthenticatedError('Invalid credentials')
+    }
+    //Validacion de contraseña, es decir que existe el usuario con esa contraseña 
+    const isPasswordCorrect = await user.comparePassword(password)
+    if(!isPasswordCorrect){
         throw new UnauthenticatedError('Invalid credentials')
     }
     const token = user.CreateJWT()

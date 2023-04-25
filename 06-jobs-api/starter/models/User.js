@@ -37,4 +37,11 @@ userSchema.methods.CreateJWT = function(){
         expiresIn: process.env.JWT_TIMELINE
     } )
 }
+userSchema.methods.comparePassword = async function (canditatePassword){
+    const isMatch = await bcrypt.compare(canditatePassword, this.password)
+    return isMatch
+}
+
+
+
 module.exports = mongoose.model('User', userSchema)
